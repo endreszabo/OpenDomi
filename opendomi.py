@@ -117,7 +117,6 @@ def query_authoritative_ns (domain, log=lambda msg: None):
             for rr in rrset:
                 if rr.rdtype == dns.rdatatype.SOA:
                     log('FQAN','D1','Same server is authoritative for %s' % (sub))
-                    pass
                 elif rr.rdtype == dns.rdatatype.A:
                     ns += [rr.items[0].address]
                     log('FQAN','D2','IPv4 ipv4 record for %s: %s' % (rr.name, rr.items[0].address))
@@ -131,7 +130,6 @@ def query_authoritative_ns (domain, log=lambda msg: None):
                     result = [rr.to_text(), default.query(authority).rrset[0].to_text()] #choice(rrset) #pick a random NS
                 else:
                     log('FQAN','D4',"Ignoring %s" % (rr))
-                    pass
         print "Picking random ns from list:", ', '.join(ns)
         ns = choice(ns)
         print "Picked %s" % ns
