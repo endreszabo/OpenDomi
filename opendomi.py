@@ -141,7 +141,7 @@ import sys
 def log (code, severity, msg):
     sys.stderr.write(u'M-' + code + ' -' + severity + '- [' + domain + '] ' + msg + u'\n')
 
-if len(argv)<2:
+if len(argv)<=2:
     log('STAR','I','NS parameter not given, getting it from DNS')
     ns= query_authoritative_ns (domain, log)
     log('PNAM','I',"NS name: %s" % ns[0])
