@@ -68,14 +68,11 @@ def check_soa(ns):
     if len(soa_fields) != 7:
         log('PRIF','E','Wrong number of SOA fields: %d', len(soa_fields))
     soa_error=[]
-    if soa_fields[3] * 20 > default_soa['refresh'] or soa_fields[3] / 20 < default_soa['refresh']:
-        soa_error+=['refresh: %s' % soa_fields[3]]
-    if soa_fields[4] * 20 > default_soa['retry'] or soa_fields[4] / 20 < default_soa['retry']:
-        soa_error+=['retry: %s' % soa_fields[4]]
-    if soa_fields[5] * 20 > default_soa['expire'] or soa_fields[5] / 20 < default_soa['expire']:
-        soa_error+=['expire: %s' % soa_fields[5]]
-    if soa_fields[6] * 20 > default_soa['ttl'] or soa_fields[6] / 20 < default_soa['ttl']:
-        soa_error+=['ttl: %s' % soa_fields[6]]
+    for index, field in enumerate(('refresh', 'retry', 'expire', 'ttl'), 3):
+        soa_value = soa_fields[index]
+        def_value = default_soa[field]
+        if soa_value * 20 > def_value or soa_value / 20 < def_value:
+            soa_error.append('%s: %s' % (field, soa_value))
     if soa_error:
         log('RERR','W',"SOA parameters (%s) don't comply with RIPE" % ', '.join(soa_error))
 
