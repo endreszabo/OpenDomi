@@ -144,7 +144,7 @@ if len(argv)<=2:
     log('PNAM','I',"NS name: %s" % ns[0])
     log('PADD','I',"NS addr: %s" % ns[1])
 else:
-    ns=argv[2]
+    ns=[argv[2]]
 
 log('PGET','I','getting domain from NS %s' % ns[1])
 
